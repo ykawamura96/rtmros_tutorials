@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<launch>
+	
+  
+	<arg default="false" name="LAUNCH_CHEST_CAMERA"/>
+	
+  
+	<arg default="true" name="LAUNCH_ROS_BRIDGE"/>
+	
+  
+	<include file="$(find hrpsys_gazebo_tutorials)/launch/hrp2017_ros_bridge_gazebo.launch" if="$(arg LAUNCH_ROS_BRIDGE)"/>
+	
+  
+	<!-- common file -->
+	
+  
+	<include file="$(find jsk_hrp2_ros_bridge)/launch/jsk_robot_common.launch">
+		
+    
+		<arg name="USE_PS3JOY" value="true"/>
+		
+    
+		<arg name="ROBOT_NAME" value="HRP2JSKNTS"/>
+		
+    
+		<arg name="NTP_HOSTNAME" value="localhost"/>
+		
+  
+	</include>
+	
+
+  
+	
+  
+	
+  
+	<include file="$(find jsk_footstep_controller)/launch/hrp2jsk_footcoords.launch"/>
+	
+  
+	<node name="motor_state_thermo_appender" pkg="jsk_hrp2_ros_bridge" type="motor_state_thermo_appender.py"/>
+	
+  
+	<!-- for 3hand -->
+	
+  
+	<node name="hrp3hand_empty_joint_publisher" pkg="jsk_hrp2_ros_bridge" type="hrp3hand_empty_joint_publisher.py"/>
+	
+  
+	<node name="joint_states_appender" pkg="jsk_calibration" type="joint_states_appender.py"/>
+	
+
+  
+	<!-- For multisense -->
+	
+
+  
+	<!-- <include file="$(find jsk_hrp2_ros_bridge)/launch/hrp2_multisense_local.launch"> -->
+	
+  
+	<!--   <arg name="ip_address" value="10.20.3.15" /> -->
+	
+  
+	<!--   <arg name="mtu" value="1500" /> -->
+	
+  
+	<!--   <arg name="SELF_FILTER_PARAM" default="$(find jsk_hrp2_ros_bridge)/config/HRP2JSKNTS_self_filter.yaml" /> -->
+	
+  
+	<!-- </include> -->
+	
+
+  
+	
+  
+	<!-- set resolution mode from 5 (VGA) or 8(QVGA) -->
+	
+  
+	
+  
+	
+
+  
+	<!-- setup default settings for multisense-->
+	
+  
+	
+
+
+  
+	<!-- For chest camera -->
+	
+  
+	
+
+  
+	<node name="robotsound" pkg="sound_play" type="soundplay_node.py">
+		
+    
+		<remap from="sound_play" to="robotsound"/>
+		
+  
+	</node>
+	
+  
+	
+  
+	<node args="$(find pr2eus)/speak.l &quot;(progn (ros::roseus \&quot;play_initial_voice\&quot;) (while (/= 0 (unix:system \&quot;rosnode list | grep robotsound\&quot;)) (unix:sleep 4)) (unix:sleep 6) (speak-en \&quot;Hello.\&quot;) (exit))&quot;" name="play_initial_voice" output="screen" pkg="roseus" type="roseus"/>
+	
+
+  
+	<node name="sensors_monitor" pkg="jsk_hrp2_ros_bridge" type="sensors_monitor.py">
+  </node>
+	
+
+
+	<node args="/HRP2JSKNTS/RLEG_thermo/case thermo_rleg" name="thermo_publisher" pkg="topic_tools" type="relay"/>
+	<node args="/HRP2JSKNTS/LLEG_thermo/case thermo_lleg" name="thermo_publisher2" pkg="topic_tools" type="relay"/>
+</launch>

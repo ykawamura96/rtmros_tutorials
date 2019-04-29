@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<launch>
+	
+  
+	<arg default="hrp2017_xtion_calib_20170703.yaml" name="CALIB_FILE"/>
+	
+  
+	<rosparam command="load" file="$(find hrpsys_ros_bridge_tutorials)/models/HRP2JSKNTS_controller_config.yaml"/>
+	
+  
+	<!-- common file -->
+	
+  
+	<group>
+		
+    
+		<remap from="motor_states" to="motor_states_org"/>
+		
+    
+		<include file="$(find jsk_hrp2_ros_bridge)/launch/jsk_hrp2_ros_bridge.launch">
+			
+      
+			<arg default="true" name="USE_HAND"/>
+			
+      
+			<arg default="HRP2JSKNTS" name="ROBOT_NAME"/>
+			
+      
+			<arg default="hrp2jsknts" name="ROBOT_TYPE"/>
+			
+      
+			<arg default="localhost" name="nameserver"/>
+			
+      
+			<arg name="USE_CALIBRATED_URDF" value="true"/>
+			
+      
+			<arg name="NOT_USE_XACRO" value="false"/>
+			
+      
+			<arg name="COLLADA_FILE" value="$(find hrpsys_ros_bridge_tutorials)/models/HRP2JSKNTS_WH_SENSORS.urdf"/>
+			
+      
+			<arg name="CALIB_FILE_COMMAND" value="$(find euscollada)/scripts/urdf_patch.py patch $(find hrpsys_ros_bridge_tutorials)/models/HRP2JSKNTS_WH_SENSORS.urdf $(find jsk_hrp2_ros_bridge)/calib_data/$(arg CALIB_FILE)"/>
+			
+      
+			<arg name="USE_SOFTERRORLIMIT" value="true"/>
+			
+    
+			<arg name="CONF_FILE" value="$(find hrpsys_gazebo_tutorials)/config/HRP2JSKNTS.conf"/>
+			<arg name="MODEL_FILE" value="$(find hrp2_models)/HRP2JSKNTS_for_OpenHRP3/HRP2JSKNTSmain.wrl"/>
+		</include>
+		
+  
+	</group>
+	
+
+</launch>

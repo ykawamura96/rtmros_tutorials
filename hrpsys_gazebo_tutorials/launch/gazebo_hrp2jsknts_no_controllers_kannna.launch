@@ -5,23 +5,28 @@
   <arg name="SYNCHRONIZED" default="false" />
   <arg name="CALIB_FILE" default="hrp2017_xtion_calib_20170703.yaml"/>
 
+  <!-- load HRP2KSKNTS_gazebo_private.yaml for thermal simulation -->
   <rosparam command="load"
             file="$(find jsk_hrp2_ros_bridge)/config/HRP2JSKNTS_gazebo_private.yaml" ns="HRP2JSKNTS" />
+
+  <!-- define gains for velocity feedback for joint control -->
   <rosparam command="load"
             file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND.yaml" ns="HRP3HAND" />
 
   <include file="$(find hrpsys_gazebo_general)/launch/gazebo_robot_no_controllers.launch">
-    <arg name="ROBOT_TYPE" value="HRP2JSKNTS" />
+    <arg name="ROBOT_TYPE" value="HRP2JSKNTS_with_kannna" />
     <arg name="WORLD" value="$(arg WORLD)" />
     <arg name="HRPSYS_GAZEBO_CONFIG" default="$(find hrpsys_gazebo_tutorials)/config/HRP2JSKNTS.yaml" />
-    <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf.xacro" />
-
+    <!-- <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf.xacro" /> -->
+    <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS_with_kannna/HRP2JSKNTS_with_kannna.urdf.xacro" />
+    <!-- <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS_with_kannna/HRP2JSKNTS_with_kannna.urdf" /> -->
     <arg name="PAUSED" value="$(arg PAUSED)"/>
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="gzname" value="$(arg gzname)" />
     <arg name="use_robot_state_publisher" value="false"/>
-    <arg name="USE_CALIBRATED_URDF" value="true"/>
-    <arg name="CALIB_FILE_COMMAND" value="$(find euscollada)/scripts/urdf_patch.py patch $(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf $(find jsk_hrp2_ros_bridge)/calib_data/$(arg CALIB_FILE)"/>
+    <!-- <arg name="USE_CALIBRATED_URDF" value="true"/> -->
+    <arg name="USE_CALIBRATED_URDF" value="false"/>
+        <!-- <arg name="CALIB_FILE_COMMAND" value="$(find euscollada)/scripts/urdf_patch.py patch $(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf $(find jsk_hrp2_ros_bridge)/calib_data/$(arg CALIB_FILE)"/> -->
   </include>
 </launch>

@@ -15,13 +15,14 @@
     <arg name="WORLD" value="$(arg WORLD)" />
     <arg name="HRPSYS_GAZEBO_CONFIG" default="$(find hrpsys_gazebo_tutorials)/config/HRP2JSKNTS.yaml" />
     <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf.xacro" />
-
+    
     <arg name="PAUSED" value="$(arg PAUSED)"/>
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="gzname" value="$(arg gzname)" />
     <arg name="use_robot_state_publisher" value="false"/>
-    <arg name="USE_CALIBRATED_URDF" value="true"/>
-    <arg name="CALIB_FILE_COMMAND" value="$(find euscollada)/scripts/urdf_patch.py patch $(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf $(find jsk_hrp2_ros_bridge)/calib_data/$(arg CALIB_FILE)"/>
+    <arg name="USE_CALIBRATED_URDF" value="false"/>
+    <!-- <arg name="USE_CALIBRATED_URDF" value="true"/> -->
+    <!-- <arg name="CALIB_FILE_COMMAND" value="$(find euscollada)/scripts/urdf_patch.py patch $(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf $(find jsk_hrp2_ros_bridge)/calib_data/$(arg CALIB_FILE)"/> -->
   </include>
 </launch>

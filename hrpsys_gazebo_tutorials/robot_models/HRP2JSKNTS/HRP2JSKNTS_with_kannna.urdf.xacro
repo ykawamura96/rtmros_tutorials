@@ -50,7 +50,7 @@
   <gazebo reference="RARM_JOINT6">
     <provideFeedback>1</provideFeedback>
   </gazebo>
-
+  
   <!-- add kannna -->
   <link name="kannna">
     <visual>
@@ -70,13 +70,13 @@
       <inertia ixx="1e-3" ixy="0.0" ixz="0.0" iyy="1e-3" iyz="0.0" izz="1e-3"/>
     </inertial>
   </link>
-  <joint name="kannna_to_hand" type="revolute">
+  <joint name="kannna_to_hand" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="LARM_LINK6"/>
     <child link="kannna"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="1000" lower="-0.261799" upper="1.6057" velocity="10.0"/>
-    <dynamics friction="10000"/>
+    <!-- <axis xyz="0 1 0"/> -->
+    <!-- <limit effort="1000" lower="-0.261799" upper="1.6057" velocity="10.0"/> -->
+    <!-- <dynamics friction="10000"/> -->
   </joint>
   <gazebo reference="kannna">
     <material>Gazebo/WoodFloor</material>
@@ -86,7 +86,7 @@
     <mu2>1.0</mu2>
   </gazebo>
 
-  <!-- add Kinect plugin, link and joint without visual and collision -->
+    <!-- add Kinect plugin, link and joint without visual and collision -->
   <!-- <joint name="xtion_joint" type="fixed"> -->
   <!--   <origin rpy="0 0 0" xyz="0.1120 0.0 0.1255"/> -->
   <!--   <parent link="HEAD_LINK1"/> -->

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude" name="room73b2-karimoku-table">
+  <macro name="room73b2-karimoku-table" params="name parent *origin">
+    <gazebo>
+      <static>false</static>
+    </gazebo>
+    <link name="${name}_nil_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 -0 0"/>
+        <geometry>
+          <mesh filename="package://hrpsys_gazebo_tutorials/enviroment_models/kannna-table/meshes/nil_link_mesh.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 -0 0"/>
+        <geometry>
+          <mesh filename="package://hrpsys_gazebo_tutorials/enviroment_models/kannna-table/meshes/nil_link_mesh.dae" scale="1 1 1"/>
+        </geometry>
+      </collision>
+      <inertial>
+	<!-- changed mass and inertia by y-kawamura 20190501 -->
+        <mass value="20.0"/>
+        <origin xyz="0 0 0" rpy="0 -0 0"/>
+        <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+      </inertial>
+    </link>
+    <gazebo reference="${name}_nil_link">
+      <mu1>0.9</mu1>
+      <mu2>0.9</mu2>
+    </gazebo>
+    <joint name="${name}_root_parent_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_nil_link"/>
+      <insert_block name="origin"/>
+    </joint>
+  </macro>
+</robot>
